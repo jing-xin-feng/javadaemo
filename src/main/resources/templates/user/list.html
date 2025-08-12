@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: html(title='用户列表', content=~{::#content})}">
+<th:block id="content">
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>用户管理</h2>
+            <a th:href="@{/users/add}" class="btn btn-primary">添加用户</a>
+        </div>
+
+        <!-- 状态更新错误提示 -->
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>邮箱</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${page.records}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td>
+                                <span class="badge"
+                                      th:class="${user.status == 1 ? 'bg-success' : 'bg-secondary'}"
+                                      th:text="${user.status == 1 ? '启用' : '禁用'}"></span>
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a th:href="@{/users/{id}(id=${user.id})}" class="btn btn-outline-primary">查看</a>
+                                <a th:href="@{/users/edit/{id}(id=${user.id})}" class="btn btn-outline-secondary">编辑</a>
+                                <form th:action="@{/users/delete}" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" th:value="${user.id}">
+                                    <button type="submit" class="btn btn-outline-danger">删除</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <!-- 分页控件 -->
+                <nav th:if="${page.pages > 1}">
+                    <ul class="pagination">
+                        <li class="page-item" th:class="${page.current == 1} ? 'disabled' : ''">
+                            <a class="page-link" th:href="@{/users(pageNum=${page.current-1}, size=${page.size}, username=${query.username}, email=${query.email}, status=${query.status})}">上一页</a>
+                        </li>
+
+                        <li th:each="i : ${#numbers.sequence(1, page.pages)}"
+                            class="page-item"
+                            th:class="${i == page.current} ? 'active' : ''">
+                            <a class="page-link"
+                               th:href="@{/users(pageNum=${i}, size=${page.size}, username=${query.username}, email=${query.email}, status=${query.status})}"
+                               th:text="${i}"></a>
+                        </li>
+
+                        <li class="page-item" th:class="${page.current == page.pages} ? 'disabled' : ''">
+                            <a class="page-link" th:href="@{/users(pageNum=${page.current+1}, size=${page.size}, username=${query.username}, email=${query.email}, status=${query.status})}">下一页</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

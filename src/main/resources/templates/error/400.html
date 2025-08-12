@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: html(title='请求错误', content=~{::#content})}">
+<th:block id="content">
+    <div class="container text-center mt-5">
+        <h1 class="text-warning">400 - 请求参数错误</h1>
+        <p th:text="${errorMsg}">错误信息</p>
+        <a th:href="@{/users}" class="btn btn-primary mt-3">返回首页</a>
+    </div>
+</th:block>
+</html>

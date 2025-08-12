@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(title='用户详情', content=~{::#content})}">
+<th:block id="content">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">用户详情</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3 fw-bold">ID:</div>
+                        <div class="col-md-9" th:text="${user.id}"></div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3 fw-bold">用户名:</div>
+                        <div class="col-md-9" th:text="${user.username}"></div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3 fw-bold">邮箱:</div>
+                        <div class="col-md-9" th:text="${user.email}"></div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3 fw-bold">状态:</div>
+                        <div class="col-md-9">
+                            <span class="badge" th:class="${user.status == 1 ? 'bg-success' : 'bg-secondary'}"
+                                  th:text="${user.status == 1 ? '启用' : '禁用'}"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3 fw-bold">创建时间:</div>
+                        <div class="col-md-9" th:text="${#temporals.format(user.createTime, 'yyyy-MM-dd HH:mm')}"></div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3 fw-bold">更新时间:</div>
+                        <div class="col-md-9" th:text="${#temporals.format(user.updateTime, 'yyyy-MM-dd HH:mm')}"></div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <!-- 修正编辑按钮链接 -->
+                        <a th:href="@{/users/edit/{id}(id=${user.id})}" class="btn btn-primary">编辑</a>
+                        <a href="/users" class="btn btn-secondary">返回列表</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>
