@@ -1,0 +1,22 @@
+这是一个基于 Spring Boot + MyBatis-Plus + Thymeleaf 的用户管理系统，包含以下核心模块：
+
+数据访问层（Mapper/Entity）
+
+服务层（Service）
+
+Web控制层（Controller）
+
+视图层（Thymeleaf模板）
+
+配置层（全局配置）
+
+AOP切面（日志记录）
+
+2. 核心技术栈
+技术	版本/说明	作用
+Spring Boot	2.7.0	核心框架
+MyBatis-Plus	3.5.3.1	ORM增强框架
+Thymeleaf	Spring Boot Starter内置	模板引擎
+Lombok	1.18+	简化POJO开发
+Bootstrap	5.1.3	前端UI框架
+Hibernate Validator	Spring Boot Starter内置	参数校验
